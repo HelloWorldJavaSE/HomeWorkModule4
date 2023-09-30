@@ -14,12 +14,12 @@ public class Main {
         thread1.start();
         thread2.start();
         try {
-            thread1.join();
+            thread1.join(); //ждем окончания работы потока
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
         try {
-            thread2.join();
+            thread2.join(); //ждем окончания работы потока 
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -34,7 +34,30 @@ public class Main {
         // то же самое, они могут оба увеличить свои локальные копии значения на основе устаревшей
         // информации, что приводит к неправильному результату.
 
-        //Лучше будет использовать CounterFix который будет делать все атамарно 
-
+        //Лучше будет использовать CounterFix который будет 
+        CounterFix counter = new Counter();
+       Thread thread1 = new Thread(()->{
+           for (int i = 0; i < 1000; i++) {
+               counter.increment();
+           }
+       });
+        Thread thread2 = new Thread(()->{
+            for (int i = 0; i < 1000; i++) {
+                counter.increment();
+            }
+        });
+        thread1.start();
+        thread2.start();
+        try {
+            thread1.join(); //ждем окончания работы потока
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            thread2.join(); //ждем окончания работы потока
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println(counter.getValue());
     }
 }
