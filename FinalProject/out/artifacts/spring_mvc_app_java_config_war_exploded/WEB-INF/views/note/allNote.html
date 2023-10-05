@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Notes</title>
+    <style>
+        body {
+            background-color: #f2f2f2;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            width: 300px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin: 0 0 20px;
+        }
+
+        a {
+            display: block;
+            padding: 10px;
+            background-color: #4caf50;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        a:hover {
+            background-color: #45a049;
+        }
+
+        input[type="submit"] {
+            display: block;
+            padding: 10px;
+            background-color: #4caf50;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>All Notes</h1>
+    <div th:each="allNote : ${allNote}">
+        <a th:href="@{/{id}(id=${allNote.getId()})}" th:text="${allNote.getText()}">Note</a>
+    </div>
+    <form th:method="GET" th:action="@{/new}">
+        <input type="submit" value="Create">
+    </form>
+</div>
+</body>
+</html>
