@@ -10,7 +10,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class MyController {
 
-
+    /*
+    Когда я использовал анатации @RequestParam то у меня не получалось проверять корректно ли Integer age
+    (Если ввести в запросе age = String то выдавало ошибку: The origin server did not find a current representation for the target resource or is not willing to disclose that one exists.
+    Решил взять HttpServletRequest хоть и немного не рацианально брать очень большой обьект (много данных).
+    И я конечно наверное костылем проверяю являеться ли строка числом
+     */
     @GetMapping("diary/start")
     public String diaryPage( HttpServletRequest httpServletRequest,
                             Model model) {
